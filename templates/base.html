@@ -39,6 +39,14 @@
             </div>
         </div>
         {% endblock %}
+        {% block banner%}
+        <div class=" col-12 mt-3">
+            <img src="{{ url_for('static', filename='image/banner.png') }}">
+        </div>
+        {% endblock %}
+
+        {% block content%}
+        {% endblock %}
     </div>
 </body>
 </html>
