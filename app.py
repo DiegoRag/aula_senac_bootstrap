@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
+from forms import formLogin, formNovoUsuario
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = '07ced41fe132b166347a6f014a704f51aacfddf919ad41b182562d0668b344f8'
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -16,7 +18,16 @@ def cursos():
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    titulo = 'Login de Acesso'
+    descricao = 'Formulario formulario de login'
+
+    form_login = formLogin()
+    form_novo_usuario = formNovoUsuario()
+
+    return render_template('login.html', titulo=titulo, 
+                                         descricao=descricao,
+                                         form_login=form_login,
+                                         form_novo_usuario=form_novo_usuario)
 
 @app.route('/contato')
 def contato():
