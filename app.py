@@ -16,13 +16,14 @@ def sobre_ead():
 def cursos():
     return render_template('cursos.html')
 
-@app.route('/login')
+@app.route('/login', methods=['get', 'post'])
 def login():
     titulo = 'Login de Acesso'
     descricao = 'Formulario formulario de login'
 
     form_login = formLogin()
     form_novo_usuario = formNovoUsuario()
+
 
     return render_template('login.html', titulo=titulo, 
                                          descricao=descricao,
