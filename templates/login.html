@@ -24,9 +24,8 @@
 
                     <div class="form-group mb-2">
                         {{ form_login.email.label (class="form-control-label") }}
-                        {{form_login.email.errors}}
                         {% if form_login.email.errors %}
-                        {{ form_login.email (class="form_control-is-invalid") }}
+                            {{ form_login.email (class="form-control is-invalid") }}
                              <div class="invalid-feedback">
 
                                 {% for error in form_login.email.errors %}
