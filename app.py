@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect, session
 from forms import formLogin, formNovoUsuario
 from hashlib import sha256
 
@@ -39,9 +39,24 @@ def login():
         return redirect(url_for('index'))
 
     if form_novo_usuario.validate_on_submit() and 'submitCadastro' in request.form:
-    
+        print('cavalos')
+
         cursor = mydb.cursor()
-    
+
+        nome     = form_novo_usuario.nome.data
+        telefone = form_novo_usuario.telefone.data
+        email    = form_novo_usuario.email.data
+        cpf      = form_novo_usuario.cpf.data
+        senha    = form_novo_usuario.senha.data
+        hashSenha = sha256(senha.encode())
+        
+        query = f'INSERT INTO aluno (nome,email,telefone,cpf,senha) VALUES ("{nome}","{email}","{telefone}","{cpf}","{hashSenha.hexdigest()}")'
+        print(query)
+        cursor.execute(query)
+        mydb.commit()
+
+        flash(f'Cadastro realizado com sucesso: {form_novo_usuario.nome.data}' , 'alert-success')
+        return redirect(url_for('index'))
 
 
 
