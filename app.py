@@ -34,9 +34,24 @@ def login():
     form_novo_usuario = formNovoUsuario()
     
     if form_login.validate_on_submit() and 'submitLogin' in request.form:
+        
+        cursor = mydb.cursor()
 
-        flash(f'Login realizado com sucesso: {form_login.email.data}', 'alert-success')
-        return redirect(url_for('index'))
+        email = form_login.email.data
+        senha = form_login.senha.data
+        hashSenha = sha256(senha.encode())
+
+        comando = f'Select * from aluno where email = "{email}" '
+        cursor.execute(comando)
+        result = cursor.fetchall()
+
+        if hashSenha.hexdigest() ==  result[0][5] :
+            session['nome_usuario'] = result[0][1]
+            flash(f'Login realizado com sucesso: {form_login.email.data}', 'alert-primary')
+            return redirect(url_for('index'))
+        else:
+            flash(f'Usuario ou senha incorreta para: {form_login.email.data}', 'alert-danger')
+            return redirect(url_for('login'))    
 
     if form_novo_usuario.validate_on_submit() and 'submitCadastro' in request.form:
         print('cavalos')
@@ -69,6 +84,11 @@ def login():
 @app.route('/contato')
 def contato():
     return render_template('contato.html')
+
+@app.route('/logOut')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
