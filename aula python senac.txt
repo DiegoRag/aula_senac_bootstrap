@@ -1,0 +1,334 @@
+ncomo criar uma pasta no cmd windows
+
+entrar na pasta de documentos:
+cd C:\Users\"Seu usuario"\Documents
+
+estando nesse diretorio:
+
+C:\Users\"Seu usuario"\Documents mkdir "nome da pasta"
+
+para listar tudo o que tem dentro de um diretorio digite:
+
+dir 
+
+para criar um ambiente virtual python atraves do cmd no windows:
+
+python -m venv env
+
+faça isso dentro da pasta do seu projeto, assim da forma como criamos anteriormente
+
+para ativar o ambiente faca isso
+
+env\Scripts\activate
+
+para desativar
+
+env\Scripts\deactivate
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+flask
+
+para iniciar o seu server flask
+
+set FLASK_APP=app
+*enter*
+
+FLASK run
+//////////////////////////////////////////////////////////////////////////////////////////////
+para ativar modo de desenvolvimento no flask coloque no cmd com o ambiente ativado
+
+para windows
+
+set FLASK_APP=development
+
+para linux
+
+export FLASK_APP=development
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+para adicionar uma rota no flask:
+
+exemplo:
+
+@app.route("/sobre")
+def sobre():
+    return "Curso muito bem do bom"
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+Forma de alternativa de abrir o python ja em modo debug
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+	
+dessa forma voce pode iniciar o servidor apenas clicando o start do vscode
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+templates
+
+Voce ira colocar todos os seus arquivos dentro de uma pasta chamada templates que ira ficar dentro da pasta do seu projeto
+
+agora com os arquivos html criados dentro da pasta de projeto, voce vai criar suas rotas
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+quando voce criar uma rota voce deve colocar o endereco html dentro dela assim como foi feito no index a cima.
+No caso da pagina index a sua rota vai ficar como ('/') pois ja como ela é a pagina principal nao precisa de rotas.
+se voce estivesse fazendo uma pagina de quem somos por exemplo:	
+
+@app.route('/quemsomos')
+def quemsomos():
+    return render_template('quemsomos.html')
+	
+
+note que a rota tem o nome do arquivo html porem sem o ".html"
+e tambem a assim como o index tem o return render_template que vai retornar o o arquivo html dentro de templates
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static 
+
+Além da pasta templates devemos criar uma pasta chamada static com o propósito de armazenar os nossos arquivos estaticos
+como um pdf por exemplo
+
+e dentro da pasta static teremos outra pasta chamada image, para armazenar arquivos como imagens
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+Como usar informacoes de forma dinamica no flask
+
+Usar informacoes de forma dinamica nada mais é do que fazer aparecer um texto em seu arquivo html sem ter necessariamente escrito nada la.
+Segue exemplo de como isso foi feito usando uma pagina de login:
+
+rota no arquivo py:
+
+@app.route('/login')
+def login():
+    titulo = 'Login de acesso'
+    descricao = 'Formulario de login'
+	 return render_template('login.html', titulo=titulo, descricao=descricao)
+	 
+perceba que criamos um texto de titulo e outro de descricao e entao damos um nome a eles no render_template
+
+agora o que fazer na pagina html
+
+<h1>{{titulo}}</h1>
+<p>{{descricao}}</p>
+
+no arquivo html só nos resta fazer uma interpolacao que significa que a pagina html ira trocar informacoes com o arquivo python
+a interpolacao é feita com o uso de duas chaves da seguinte forma {{coloque o nome aqui}}
+
+voce pode formatar a informacao da forma que quiser no html usando o h1 ou p.	
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+Como fazer um formulario de login no html flask?
+
+a rota vai ficar da seguinte forma 
+@app.route('/login')
+def login():
+    titulo = 'Login de acesso'
+    descricao = 'Formulario de login'
+    return render_template('login.html', titulo=titulo, descricao=descricao)
+	
+ja como vai ficar em uma pagina html de login o arquivo html login vai ficar assim:
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <table>
+        <tr>    
+            <td><a href="{{url_for('index') }}" class="">index</a></td>
+            <td><a href="{{url_for('produtos') }}" class="">produtos</a></td>
+            <td><a href="{{url_for('login')}}" class="">login</a></td>
+        </tr>
+    </table>
+    <h1>faca seu login</h1>
+    
+    <h1>{{titulo}}</h1>
+    <p>{{descricao}}</p>
+
+<form action = "{{url_for('validacao')}} method = post">
+
+<table>
+<tr>
+    <th><label>Usuário</label></th>
+    <th><label>Senha</label></th>
+    <th></th>
+
+</tr>
+<tr>
+    <td><input type="text" name="user" placeholder="Informe o seu email de cadastro"/></td>
+    <td><input type="password" name="senha" placeholder="informe a sua senha"/></td>
+    <td><input type="submit" value="Login"/></td>
+</tr>
+
+
+</table>
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+como ativar o git no seu projeto python
+com o env ativado:
+
+git init
+
+para listar os diretorios do git 
+cd git 
+.git
+
+antes de fazer um commit para gerar um pré versionamento
+adicione os arquivos ao git:
+
+git add .
+
+agora para fazer o commit
+
+git commit -m "First commit"
+
+mas como boa pratica adicione -m "Nome que voce quiser"
+
+o -m é tipo um nome/mensagem
+
+caso seja o primeiro commit deixa essa mensagem "First commit"
+
+depois crie um branch, caso seja a primeira coloque assim
+
+git branch -m main 
+
+caso nao seja coloque outro nome
+
+as branchs vao se tornar ao longo do tempo ramificacoes da branch principal
+
+agora para conectar seu computador ao git coloque git remote add origin "https ou ssh"
+
+agora para enviar seu projeto para o git:
+
+git push -u origin main
+
+agora suponhamos que voce alterou um arquivo e quer subir ele pro repositorio para manter ele versionado
+
+depois de ter alterado a primeira coisa que voce vai fazer é:
+
+git add .
+
+git status
+para ver se o arquivo foi modificado
+
+git commit -m "Alteracao de versao" (ou o nome que voce preferir para sua alteracao
+
+git push -u origin main(isso claro se voce for salvar no branch main)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+para baixar um repositorio em casa:
+
+git clone "link do repositorio em https ou ssh"
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+Como privar uma funcao no pythnon poo
+
+colocando dois underlines antes do nome da funcao:
+
+def __liga_forno():
+	print("forno ligou")
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+Como criar formularios no flask de forma orientada a objeto
+
+Voce vai criar um arquivo forms.py e vai usar as seguintes bibliotecas
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
+
+e tambem devera baixar a biblioteca email_validator via pip por alguma razao
+
+e depois disso voce ja pode criar alguns formularios:
+
+aqui estao alguns formularios de exemplo
+
+class formLogin(FlaskForm):
+    email = StringField('Email',validators=[DataRequired(),Email()])
+    senha = PasswordField('senha', validators=[DataRequired(),Length(6,12)])
+    submitLogin = SubmitField('Login')
+
+
+class formNovoUsuario(FlaskForm):
+    nome = StringField('Nome', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(),Email()])
+    celular = StringField('Celular', validators=[])
+    cpf = StringField('CPF', validators=[])
+    senha = PasswordField('Senha', validators=[DataRequired(), Length(6,12)])
+    senhConfirmacao = PasswordField('Confirmação de Senha', validators=[DataRequired(),EqualTo('senha')])
+    submit = SubmitField('Criar conta')
+
+e para usar essas classes na minha pagina como eu faço?
+
+voce vai entrar no seu arquivo de rotas/app.py e vai importar as suas classe da seguinte forma
+
+from forms import *nome da classe*
+
+Neste exemplo usaremos as classes que foram usadas de exemplo anteriormente
+
+from forms import formLogin, formNovoUsuario
+
+
+
+ @app.route('/login')
+def login():
+    titulo = 'Login de Acesso'
+    descricao = 'Formulario formulario de login'
+
+    form_login = formLogin()
+    form_novo_usuario = formNovoUsuario()
+
+    return render_template('login.html', titulo=titulo, 
+                                         descricao=descricao,
+                                         form_login=form_login,
+                                         form_novo_usuario=form_novo_usuario) 
+										
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+como usar uma hash para identificar o seu site e prevenir o roubo do seu trabalho: dentro do app.py voce vai usar o seguinte metodo:
+
+app.config['SECRET_KEY'] = '07ced41fe132b166347a6f014a704f51aacfddf919ad41b182562d0668b344f8'
+
+
+dentrto do seu ambiente voce vai entrar no python no cmd 
+
+vai importar o secrets 
+
+import secrets
+
+secrets.token_hex(16)
+
+
+
+
+    app.config['SECRET_KEY'] = '*hash gerada*'
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+pip install mysql-connector-python 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Como fazer upload de arquivos para uma pasta do seu servidor flask:
+
+python -m pip install flask-reuploaded
+
+alem de importar as diretivas desta biblioteca vamos tambem colocar uma diretiva adicional da biblioteca flask : send_from_directory
+
+e para fazer upload de imagens:
+
+from flask_uploads import uploadSet, IMAGES, configure_uploads
